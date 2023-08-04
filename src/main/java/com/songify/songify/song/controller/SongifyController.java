@@ -35,8 +35,6 @@ public class SongifyController {
         this.songService = songService;
     }
 
-
-
     @GetMapping
     public ResponseEntity<SongResponseDTO> getAllSongs(){
         SongResponseDTO response = new SongResponseDTO(songService.getSongs());
