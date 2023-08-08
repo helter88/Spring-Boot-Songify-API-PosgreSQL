@@ -1,11 +1,12 @@
 package com.songify.songify.song.repository;
 
 import java.util.List;
-import java.util.Map;
+
+import org.springframework.data.repository.Repository;
 
 import com.songify.songify.song.model.SongEntity;
 
-public interface SongRepository {
+public interface SongRepository extends Repository<SongEntity, Long> {
      SongEntity save(SongEntity song);
 
      List<SongEntity> findAll();

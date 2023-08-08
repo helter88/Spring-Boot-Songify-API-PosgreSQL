@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.songify.songify.song.model.SongEntity;
+import com.songify.songify.song.repository.SongRepository;
 import com.songify.songify.song.repository.SongRepositoryInMemory;
 
 import lombok.extern.log4j.Log4j2;
@@ -12,9 +13,9 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @Log4j2
 public class SongService {
-    private final SongRepositoryInMemory songRepository;
+    private final SongRepository songRepository;
 
-    public SongService(SongRepositoryInMemory songRepository) {
+    public SongService(SongRepository songRepository) {
         this.songRepository = songRepository;
     }
 
@@ -23,10 +24,10 @@ public class SongService {
         return songRepository.findAll();
     }
 
-    public SongEntity getSongById(Integer id) {
-        log.info("Finded song on id: " + id);
-        return songRepository.findSongById(id);
-    }
+    // public SongEntity getSongById(Integer id) {
+    //     log.info("Finded song on id: " + id);
+    //     return songRepository.findSongById(id);
+    // }
 
     public SongEntity addSong(SongEntity song){
         log.info("adding new song: " + song);
@@ -34,14 +35,14 @@ public class SongService {
         return song;
     }
 
-    public SongEntity removeSong(Integer id) {
-        log.info("Removing song on id: " + id);
-        return songRepository.removeSong(id);
-    }
+    // public SongEntity removeSong(Integer id) {
+    //     log.info("Removing song on id: " + id);
+    //     return songRepository.removeSong(id);
+    // }
 
-    public SongEntity updateSong(Integer id, SongEntity newSong ){
-        log.info("Updating song on id: " + id);
-        return songRepository.updateSong(id, newSong);
-    }
+    // public SongEntity updateSong(Integer id, SongEntity newSong ){
+    //     log.info("Updating song on id: " + id);
+    //     return songRepository.updateSong(id, newSong);
+    // }
 
 }

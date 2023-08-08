@@ -4,11 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Repository;
-
 import com.songify.songify.song.model.SongEntity;
 
-@Repository
 public class SongRepositoryInMemory implements SongRepository {
 
      Map<Integer, SongEntity> dataBase = new HashMap<>(Map.of(

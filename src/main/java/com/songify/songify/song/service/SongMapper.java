@@ -30,14 +30,14 @@ public class SongMapper {
         SongEntity.SongEntityBuilder builder = SongEntity.builder();
         
         if(dto.songName() != null){
-            builder.songName(dto.songName());
+            builder.name(dto.songName());
         } else {
-            builder.songName(song.songName());
+            builder.name(song.getName());
         }
         if(dto.artist() != null){
             builder.artist(dto.artist());
         } else {
-            builder.artist(song.artist());
+            builder.artist(song.getArtist());
         }
         SongEntity newSong = builder.build();
         return newSong;
