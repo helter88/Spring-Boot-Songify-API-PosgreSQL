@@ -1,6 +1,7 @@
 package com.songify.songify.song.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.songify.songify.song.model.SongEntity;
 
 @Repository
-public class SongRepositoryInMemory {
+public class SongRepositoryInMemory implements SongRepository {
 
      Map<Integer, SongEntity> dataBase = new HashMap<>(Map.of(
         1, new SongEntity("Americana", "The Offspring"),
@@ -16,13 +17,15 @@ public class SongRepositoryInMemory {
         3, new SongEntity("Enter Sandman", "Metallica")
         ));
     
-    public SongEntity saveToDatabase(SongEntity song) {
+    @Override
+    public SongEntity save(SongEntity song) {
         dataBase.put(dataBase.size()+1, song);
         return song;
     }
 
-    public Map<Integer, SongEntity> findAll() {
-        return dataBase;
+    @Override
+    public List<SongEntity> findAll() {
+        return dataBase.values().stream().toList();
     }
 
     public SongEntity findSongById(Integer id) {

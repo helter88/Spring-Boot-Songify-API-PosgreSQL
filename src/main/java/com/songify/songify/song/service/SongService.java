@@ -1,6 +1,6 @@
 package com.songify.songify.song.service;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class SongService {
         this.songRepository = songRepository;
     }
 
-     public Map<Integer, SongEntity> getSongs(){
+     public List<SongEntity> getSongs(){
         log.info("retreving all songs");
         return songRepository.findAll();
     }
@@ -30,7 +30,7 @@ public class SongService {
 
     public SongEntity addSong(SongEntity song){
         log.info("adding new song: " + song);
-        songRepository.saveToDatabase(song);
+        songRepository.save(song);
         return song;
     }
 

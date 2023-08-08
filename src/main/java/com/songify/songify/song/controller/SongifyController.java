@@ -62,7 +62,7 @@ public class SongifyController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSong(@PathVariable Integer id){
-        if(!songService.getSongs().containsKey(id)){
+        if(!songService.getSongs().contains(id)){
             throw new SongNotFoundException("Deleted song with id: " + id);
         }
         songService.removeSong(id);
@@ -71,7 +71,7 @@ public class SongifyController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UpdateResponseSongDTO> update(@PathVariable Integer id, @RequestBody @Valid UpdateRequestSongDTO request) {
-        if(!songService.getSongs().containsKey(id)){
+        if(!songService.getSongs().contains(id)){
             throw new SongNotFoundException("Deleted song with id: " + id);
         }
         SongEntity song = SongMapper.mapFromUpdateRequestSongDTOToSongEntity(request);
@@ -82,7 +82,7 @@ public class SongifyController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<PartiallyUpdateResponseSongDTO> partiallyUpdate(@PathVariable Integer id, @RequestBody PartiallyUpdateRequestSongDTO request) {
-        if(!songService.getSongs().containsKey(id)){
+        if(!songService.getSongs().contains(id)){
             throw new SongNotFoundException("Deleted song with id: " + id);
         }
 
