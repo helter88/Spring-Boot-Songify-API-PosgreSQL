@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.songify.songify.song.model.SongEntity;
 
 @Repository
-public class SongRepository {
+public class SongRepositoryInMemory {
 
      Map<Integer, SongEntity> dataBase = new HashMap<>(Map.of(
         1, new SongEntity("Americana", "The Offspring"),

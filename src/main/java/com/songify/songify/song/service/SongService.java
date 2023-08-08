@@ -5,16 +5,16 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.songify.songify.song.model.SongEntity;
-import com.songify.songify.song.repository.SongRepository;
+import com.songify.songify.song.repository.SongRepositoryInMemory;
 
 import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
 public class SongService {
-    private final SongRepository songRepository;
+    private final SongRepositoryInMemory songRepository;
 
-    public SongService(SongRepository songRepository) {
+    public SongService(SongRepositoryInMemory songRepository) {
         this.songRepository = songRepository;
     }
 
