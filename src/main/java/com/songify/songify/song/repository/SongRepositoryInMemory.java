@@ -8,15 +8,15 @@ import com.songify.songify.song.model.SongEntity;
 
 public class SongRepositoryInMemory implements SongRepository {
 
-     Map<Integer, SongEntity> dataBase = new HashMap<>(Map.of(
-        1, new SongEntity("Americana", "The Offspring"),
-        2, new SongEntity("Smells like ten spirit", "Nirvana"),
-        3, new SongEntity("Enter Sandman", "Metallica")
+     Map<Long, SongEntity> dataBase = new HashMap<>(Map.of(
+        1L, new SongEntity("Americana", "The Offspring"),
+        2L, new SongEntity("Smells like ten spirit", "Nirvana"),
+        3L, new SongEntity("Enter Sandman", "Metallica")
         ));
     
     @Override
     public SongEntity save(SongEntity song) {
-        dataBase.put(dataBase.size()+1, song);
+        dataBase.put((dataBase.size()+1L), song);
         return song;
     }
 
@@ -25,15 +25,20 @@ public class SongRepositoryInMemory implements SongRepository {
         return dataBase.values().stream().toList();
     }
 
-    public SongEntity findSongById(Integer id) {
+    public SongEntity findSongById(Long id) {
         return dataBase.get(id);
     }
-
-    public SongEntity removeSong (Integer id) {
-        return dataBase.remove(id);
+    @Override
+    public void deleteById (Long id) {
+        dataBase.remove(id);
     }
 
-    public SongEntity updateSong (Integer id, SongEntity newSong) {
+    @Override
+    public boolean existsById(Long id) {
+        return dataBase.containsKey(id);
+    }
+
+    public SongEntity updateSong (Long id, SongEntity newSong) {
         return dataBase.put(id, newSong);
     }
 }

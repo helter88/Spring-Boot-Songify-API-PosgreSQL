@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.songify.songify.song.model.SongEntity;
 import com.songify.songify.song.repository.SongRepository;
-import com.songify.songify.song.repository.SongRepositoryInMemory;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -31,14 +30,19 @@ public class SongService {
 
     public SongEntity addSong(SongEntity song){
         log.info("adding new song: " + song);
-        songRepository.save(song);
-        return song;
+        return songRepository.save(song);
     }
 
-    // public SongEntity removeSong(Integer id) {
-    //     log.info("Removing song on id: " + id);
-    //     return songRepository.removeSong(id);
-    // }
+    public void removeSong(Long id) {
+        log.info("Removing song on id: " + id);
+        songRepository.deleteById(id);
+        
+    }
+
+    public boolean existSongById(Long id){
+        log.info("Cheacking if exist song on id: " + id);
+        return songRepository.existsById(id);
+    }
 
     // public SongEntity updateSong(Integer id, SongEntity newSong ){
     //     log.info("Updating song on id: " + id);

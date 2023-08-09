@@ -61,11 +61,12 @@ public class SongifyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSong(@PathVariable Integer id){
-        if(!songService.getSongs().contains(id)){
+    public ResponseEntity<String> deleteSong(@PathVariable Long id){
+        
+        if(!songService.existSongById(id)){
             throw new SongNotFoundException("Deleted song with id: " + id);
         }
-        // songService.removeSong(id);
+        songService.removeSong(id);
         return ResponseEntity.ok("Deleted song with id: " + id); 
     }
 
