@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.songify.songify.song.model.SongEntity;
+import com.songify.songify.song.model.SongNotFoundException;
 import com.songify.songify.song.repository.SongRepository;
 
 import jakarta.transaction.Transactional;
@@ -35,9 +36,11 @@ public class SongService {
         
     }
 
-    public boolean existSongById(Long id){
+    public void existSongById(Long id){
         log.info("Cheacking if exist song on id: " + id);
-        return songRepository.existsById(id);
+        if(!songRepository.existsById(id)){
+            throw new SongNotFoundException("Song with id: " + id + " not found");
+        }
     }
 
     @Transactional
