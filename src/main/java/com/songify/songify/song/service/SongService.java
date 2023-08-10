@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.songify.songify.song.controller.dto.request.PartiallyUpdateRequestSongDTO;
+import com.songify.songify.song.controller.dto.response.PartiallyUpdateResponseSongDTO;
 import com.songify.songify.song.model.SongEntity;
 import com.songify.songify.song.model.SongNotFoundException;
 import com.songify.songify.song.repository.SongRepository;
@@ -23,6 +25,11 @@ public class SongService {
      public List<SongEntity> getSongs(){
         log.info("retreving all songs");
         return songRepository.findAll();
+    }
+
+    public SongEntity getSongById(Long id){
+        return songRepository.findById(id)
+                .orElseThrow(() -> new SongNotFoundException("Song on id: " + id + " not found"));
     }
 
     public SongEntity addSong(SongEntity song){
@@ -49,6 +56,29 @@ public class SongService {
         existSongById(id);
         log.info("Updating song on id: " + id);
         songRepository.updateById(id, newSong);
+    }
+
+    @Transactional
+    public PartiallyUpdateResponseSongDTO partiallyUpdateSong(Long id, PartiallyUpdateRequestSongDTO request) {
+        SongEntity songToUpdate = getSongById(id);
+        SongEntity.SongEntityBuilder builder = SongEntity.builder();
+
+        if(request.songName() != null){
+            builder.name(request.songName());
+        } else {
+            builder.name(songToUpdate.getName());
+        }
+
+        if(request.artist() != null){
+            builder.artist(request.artist());
+        } else {
+            builder.artist(songToUpdate.getArtist());
+        }
+
+        SongEntity newSong = builder.build();
+        updateSong(id, newSong);
+
+        return new PartiallyUpdateResponseSongDTO(newSong.getName(), newSong.getArtist());
     }
 
 }

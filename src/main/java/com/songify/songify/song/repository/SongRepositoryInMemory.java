@@ -3,6 +3,7 @@ package com.songify.songify.song.repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.songify.songify.song.model.SongEntity;
 
@@ -25,8 +26,10 @@ public class SongRepositoryInMemory implements SongRepository {
         return dataBase.values().stream().toList();
     }
 
-    public SongEntity findSongById(Long id) {
-        return dataBase.get(id);
+    @Override
+    public Optional<SongEntity> findById(Long id) {
+        return Optional.of(dataBase.get(id));
+
     }
     @Override
     public void deleteById (Long id) {

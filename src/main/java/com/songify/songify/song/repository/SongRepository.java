@@ -1,6 +1,7 @@
 package com.songify.songify.song.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,8 @@ public interface SongRepository extends Repository<SongEntity, Long> {
      SongEntity save(SongEntity song);
 
      List<SongEntity> findAll();
+
+     Optional<SongEntity> findById(Long id);
 
      boolean existsById(Long id);
 
