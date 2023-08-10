@@ -37,8 +37,8 @@ public class SongRepositoryInMemory implements SongRepository {
     public boolean existsById(Long id) {
         return dataBase.containsKey(id);
     }
-
-    public SongEntity updateSong (Long id, SongEntity newSong) {
-        return dataBase.put(id, newSong);
+    @Override
+    public void updateById (Long id, SongEntity newSong) {
+         dataBase.put(id, newSong);
     }
 }

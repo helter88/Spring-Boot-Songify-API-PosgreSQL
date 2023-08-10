@@ -41,17 +41,6 @@ public class SongifyController {
         return ResponseEntity.ok(response);
     }
 
-    // @GetMapping("/{id}")
-    // public ResponseEntity<SingleSongResponseDTO> getSongById(@PathVariable Integer id){
-    //     SongEntity song = songService.getSongById(id);
-    //     if (song == null) {
-    //         throw new SongNotFoundException("find song with id: " + id);
-    //     } else {
-    //         SingleSongResponseDTO response = SongMapper.mapFromSongEntityToSingleSongResponseDTO(song);
-    //         return ResponseEntity.ok(response); 
-    //     }
-    // }
-
     @PostMapping
     public ResponseEntity<SingleSongResponseDTO> postSong(@RequestBody @Valid SongRequestDTO request){
         SongEntity song = SongMapper.mapFromSongRequestDTOToSongEntity(request);
@@ -71,17 +60,18 @@ public class SongifyController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UpdateResponseSongDTO> update(@PathVariable Integer id, @RequestBody @Valid UpdateRequestSongDTO request) {
-        if(!songService.getSongs().contains(id)){
-            throw new SongNotFoundException("Deleted song with id: " + id);
+    public ResponseEntity<UpdateResponseSongDTO> update(@PathVariable Long id, @RequestBody @Valid UpdateRequestSongDTO request) {
+        if(!songService.existSongById(id)){
+            throw new SongNotFoundException("Update song with id: " + id);
         }
         SongEntity song = SongMapper.mapFromUpdateRequestSongDTOToSongEntity(request);
-        // songService.updateSong(id, song);
+        songService.updateSong(id, song);
+        song.setId(id);
         UpdateResponseSongDTO body = SongMapper.mapFromSongEntityToUpdateResponseSongDTO(song);
         return ResponseEntity.ok(body);
     }
-
-    // @PatchMapping("/{id}")
+}
+  // @PatchMapping("/{id}")
     // public ResponseEntity<PartiallyUpdateResponseSongDTO> partiallyUpdate(@PathVariable Integer id, @RequestBody PartiallyUpdateRequestSongDTO request) {
     //     if(!songService.getSongs().contains(id)){
     //         throw new SongNotFoundException("Deleted song with id: " + id);
@@ -92,4 +82,3 @@ public class SongifyController {
     //     songService.updateSong(id, newSong);
     //     return ResponseEntity.ok(new PartiallyUpdateResponseSongDTO("You updated song on id: " + id + " with new song: " + newSong));
     // }
-}

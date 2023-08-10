@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.songify.songify.song.model.SongEntity;
 import com.songify.songify.song.repository.SongRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 
 @Service
@@ -22,11 +23,6 @@ public class SongService {
         log.info("retreving all songs");
         return songRepository.findAll();
     }
-
-    // public SongEntity getSongById(Integer id) {
-    //     log.info("Finded song on id: " + id);
-    //     return songRepository.findSongById(id);
-    // }
 
     public SongEntity addSong(SongEntity song){
         log.info("adding new song: " + song);
@@ -44,9 +40,17 @@ public class SongService {
         return songRepository.existsById(id);
     }
 
-    // public SongEntity updateSong(Integer id, SongEntity newSong ){
-    //     log.info("Updating song on id: " + id);
-    //     return songRepository.updateSong(id, newSong);
-    // }
+    @Transactional
+    public void updateSong(Long id, SongEntity newSong ){
+        log.info("Updating song on id: " + id);
+        songRepository.updateById(id, newSong);
+    }
 
 }
+
+
+    // public SongEntity getSongById(Integer id) {
+    //     log.info("Finded song on id: " + id);
+    //     return songRepository.findSongById(id);
+    // }
+
