@@ -31,6 +31,7 @@ public class SongService {
     }
 
     public void removeSong(Long id) {
+        existSongById(id);
         log.info("Removing song on id: " + id);
         songRepository.deleteById(id);
         
@@ -45,6 +46,7 @@ public class SongService {
 
     @Transactional
     public void updateSong(Long id, SongEntity newSong ){
+        existSongById(id);
         log.info("Updating song on id: " + id);
         songRepository.updateById(id, newSong);
     }

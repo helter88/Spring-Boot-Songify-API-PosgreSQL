@@ -52,7 +52,6 @@ public class SongifyController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSong(@PathVariable Long id){
         
-       songService.existSongById(id);
         songService.removeSong(id);
         return ResponseEntity.ok("Deleted song with id: " + id); 
     }
@@ -60,7 +59,6 @@ public class SongifyController {
     @PutMapping("/{id}")
     public ResponseEntity<UpdateResponseSongDTO> update(@PathVariable Long id, @RequestBody @Valid UpdateRequestSongDTO request) {
         
-        songService.existSongById(id);
         SongEntity song = SongMapper.mapFromUpdateRequestSongDTOToSongEntity(request);
         songService.updateSong(id, song);
         song.setId(id);
