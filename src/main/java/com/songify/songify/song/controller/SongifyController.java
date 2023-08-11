@@ -1,5 +1,7 @@
 package com.songify.songify.song.controller;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,6 @@ import com.songify.songify.song.controller.dto.response.SingleSongResponseDTO;
 import com.songify.songify.song.controller.dto.response.SongResponseDTO;
 import com.songify.songify.song.controller.dto.response.UpdateResponseSongDTO;
 import com.songify.songify.song.model.SongEntity;
-import com.songify.songify.song.model.SongNotFoundException;
 import com.songify.songify.song.service.SongMapper;
 import com.songify.songify.song.service.SongService;
 
@@ -36,8 +37,8 @@ public class SongifyController {
     }
 
     @GetMapping
-    public ResponseEntity<SongResponseDTO> getAllSongs(){
-        SongResponseDTO response = new SongResponseDTO(songService.getSongs());
+    public ResponseEntity<SongResponseDTO> getAllSongs(@PageableDefault(size = 12, page=0) Pageable pageable){
+        SongResponseDTO response = new SongResponseDTO(songService.getSongs(pageable));
         return ResponseEntity.ok(response);
     }
 

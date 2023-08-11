@@ -2,6 +2,7 @@ package com.songify.songify.song.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.songify.songify.song.controller.dto.request.PartiallyUpdateRequestSongDTO;
@@ -22,9 +23,9 @@ public class SongService {
         this.songRepository = songRepository;
     }
 
-     public List<SongEntity> getSongs(){
+     public List<SongEntity> getSongs(Pageable pageable){
         log.info("retreving all songs");
-        return songRepository.findAll();
+        return songRepository.findAll(pageable);
     }
 
     public SongEntity getSongById(Long id){
@@ -82,10 +83,3 @@ public class SongService {
     }
 
 }
-
-
-    // public SongEntity getSongById(Integer id) {
-    //     log.info("Finded song on id: " + id);
-    //     return songRepository.findSongById(id);
-    // }
-

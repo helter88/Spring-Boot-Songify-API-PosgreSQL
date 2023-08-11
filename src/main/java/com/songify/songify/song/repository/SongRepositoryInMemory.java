@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+
 import com.songify.songify.song.model.SongEntity;
 
 public class SongRepositoryInMemory implements SongRepository {
@@ -22,7 +24,7 @@ public class SongRepositoryInMemory implements SongRepository {
     }
 
     @Override
-    public List<SongEntity> findAll() {
+    public List<SongEntity> findAll(Pageable pageable) {
         return dataBase.values().stream().toList();
     }
 
